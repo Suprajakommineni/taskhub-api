@@ -8,8 +8,11 @@ type Project = {
 
 @Injectable()
 export class ProjectsService {
-
   private projects: Project[] = [];
+
+  findAll() {              // ← ADD THIS
+    return this.projects;
+  }
 
   findByUser(email: string) {
     return this.projects.filter(project => project.owner === email);
@@ -25,5 +28,4 @@ export class ProjectsService {
       project => project.id === id && project.owner === email
     );
   }
-
 }
