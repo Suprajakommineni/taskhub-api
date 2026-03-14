@@ -1,31 +1,19 @@
 import { Injectable } from '@nestjs/common';
-
-type Project = {
-  id: string;
-  name: string;
-  owner: string;
-};
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ProjectsService {
-  private projects: Project[] = [];
+  constructor(private prisma: PrismaService) {}
 
-  findAll() {              // ← ADD THIS
-    return this.projects;
+  findByUser(userId: number) {
+    return this.prisma.project.findMany({
+      where: { ownerId: userId },
+    });
   }
 
-  findByUser(email: string) {
-    return this.projects.filter(project => project.owner === email);
-  }
-
-  create(project: Project) {
-    this.projects.push(project);
-    return project;
-  }
-
-  findOne(id: string, email: string) {
-    return this.projects.find(
-      project => project.id === id && project.owner === email
-    );
+  create(name: string, ownerId: number) {
+    return this.prisma.project.create({
+      data: { name, ownerId },
+    });
   }
 }
