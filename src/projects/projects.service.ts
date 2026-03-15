@@ -8,6 +8,11 @@ export class ProjectsService {
   findByUser(userId: number) {
     return this.prisma.project.findMany({
       where: { ownerId: userId },
+      select: {
+        id: true,
+        name: true,
+        ownerId: true,
+      },
     });
   }
 
