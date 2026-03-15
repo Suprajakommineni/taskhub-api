@@ -13,7 +13,10 @@ export class ProjectsService {
 
   create(name: string, ownerId: number) {
     return this.prisma.project.create({
-      data: { name, ownerId },
+      data: {
+        name,
+        ownerId,
+      },
     });
   }
 }

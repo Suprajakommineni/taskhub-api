@@ -12,11 +12,11 @@ export class ProjectsController {
 
   @Get()
   findAll(@Request() req) {
-    return this.projectsService.findByUser(req.user.id);
+    return this.projectsService.findByUser(+req.user.id);
   }
 
   @Post()
   create(@Body() body, @Request() req) {
-    return this.projectsService.create(body.name, req.user.id);
+    return this.projectsService.create(body.name, +req.user.id);
   }
 }
